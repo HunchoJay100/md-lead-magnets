@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>NEW MAGNET TITLE — Modern Development</title>
+<meta name="description" content="ONE-LINE DESCRIPTION OF THE MAGNET." />
+
+<!-- ============================================================
+     MAGNET TEMPLATE — copy this whole _template folder, rename it
+     (the folder name becomes the URL path: go.moderndevelopment.co/<folder>),
+     then fill in:
+       1. <title> + description above
+       2. GHL_WEBHOOK_URL below (create an Inbound Webhook trigger in GoHighLevel)
+       3. LEAD_NAME below (shows up as the Meta Lead event content_name)
+       4. your magnet's actual content + the lead-capture form
+     The Meta Pixel and the Lead event are already wired. Do not remove them.
+     ============================================================ -->
+
+<!-- Meta Pixel (Meca Marketing Data) — DO NOT EDIT -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '942834204826443');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=942834204826443&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+
+<style>
+  body{font-family:system-ui,-apple-system,sans-serif;max-width:640px;margin:40px auto;padding:0 20px;color:#1a1a1a}
+  .field{margin:12px 0}
+  label{display:block;font-size:14px;margin-bottom:4px}
+  input{width:100%;padding:10px;font-size:16px;border:1px solid #ccc;border-radius:8px}
+  .cta{margin-top:16px;padding:12px 20px;font-size:16px;border:0;border-radius:8px;background:#1a1a1a;color:#fff;cursor:pointer}
+  #msuccess{display:none}
+</style>
+</head>
+<body>
+
+  <!-- ===== Replace this block with your magnet content ===== -->
+  <h1>NEW MAGNET TITLE</h1>
+  <p>Your interactive tool / calculator / scorecard goes here.</p>
+
+  <!-- ===== Lead-capture form (keep the field ids) ===== -->
+  <div id="mform">
+    <div class="field"><label>Name</label><input id="fName" type="text" autocomplete="name"></div>
+    <div class="field"><label>Email</label><input id="fEmail" type="email" autocomplete="email"></div>
+    <div class="field"><label>Phone</label><input id="fPhone" type="tel" autocomplete="tel"></div>
+    <div id="ferr" style="font-size:13px;min-height:18px"></div>
+    <button class="cta" id="submitLead">Send me my results</button>
+  </div>
+  <div id="msuccess"><h2>You're all set.</h2><p>Check your inbox shortly.</p></div>
+
+<script>
+/* ====== FILL THESE TWO IN ====== */
+const GHL_WEBHOOK_URL = "PASTE_YOUR_GHL_INBOUND_WEBHOOK_URL_HERE";
+const LEAD_NAME = "NEW MAGNET TITLE"; // becomes the Meta Lead event content_name
+
+document.getElementById('submitLead').onclick = async () => {
+  const name  = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const err   = document.getElementById('ferr');
+  if(!name || !email.includes('@') || phone.length < 7){
+    err.textContent = 'Please fill in all three fields.'; err.style.color = '#b4453a'; return;
+  }
+  err.textContent = '';
+  const payload = {
+    firstName: name.split(' ')[0], lastName: name.split(' ').slice(1).join(' '),
+    name, email, phone, source: LEAD_NAME
+    /* add any magnet-specific result fields here */
+  };
+  if(GHL_WEBHOOK_URL && !GHL_WEBHOOK_URL.startsWith('PASTE')){
+    try{ await fetch(GHL_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); }catch(e){}
+  }
+  if(window.fbq){ fbq('track','Lead',{content_name: LEAD_NAME}); }
+  document.getElementById('mform').style.display = 'none';
+  document.getElementById('msuccess').style.display = 'block';
+};
+</script>
+</body>
+</html>

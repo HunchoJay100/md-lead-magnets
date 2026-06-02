@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Lot Buildability Scorecard | Flynn Development</title>
+<meta name="description" content="Before you buy the lot, score it. See a raw Tennessee parcel's buildability and the hidden site costs hiding in it, from Flynn Development." />
+<!-- Meta Pixel (Meca Marketing Data) -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '942834204826443');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=942834204826443&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --surface:#fafaf8;
+    --surface-2:#f4f2ed;
+    --border:#e5e3dd;
+    --gold:#8a6d2f;
+    --gold-soft:#a8893d;
+    --gold-dim:rgba(138,109,47,.08);
+    --gold-line:rgba(138,109,47,.22);
+    --text:#1a1a1a;
+    --text-muted:#555555;
+    --text-dim:#888888;
+    --green:#3f7d4e;
+    --amber:#b07d1f;
+    --red:#b4453a;
+    --xs:4px; --s:8px; --m:12px; --l:16px; --xl:24px; --xxl:32px; --x3:48px;
+    --ease:cubic-bezier(.2,0,0,1);
+    --spring:cubic-bezier(.34,1.56,.64,1);
+    --sheet:cubic-bezier(.32,.72,0,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  .page{max-width:1040px;margin:0 auto;padding:48px 56px 56px}
+  @media(max-width:720px){.page{padding:32px 22px 40px}}
+
+  /* document header */
+  header.doc{border-bottom:1px solid var(--border);padding-bottom:var(--xxl);margin-bottom:var(--x3)}
+  .brand{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--l);margin-bottom:var(--x3)}
+  .brand-mark{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;letter-spacing:.5px;color:var(--text);line-height:1}
+  .brand-mark span{color:var(--gold)}
+  .brand-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-top:6px}
+  .doc-meta{text-align:right;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+  .doc-meta .label{color:var(--text-dim);font-size:9px;letter-spacing:2px;margin-bottom:2px}
+  .doc-meta .row+.row{margin-top:10px}
+  .version-pill{display:inline-block;margin-top:8px;padding:4px 11px;background:var(--gold);color:#fff;
+    font-size:10px;letter-spacing:2px;border-radius:4px;font-weight:600}
+
+  h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5.5vw,48px);font-weight:500;letter-spacing:-.5px;
+    color:var(--text);line-height:1.05;margin-bottom:var(--m);opacity:0;animation:rise .8s var(--ease) .05s forwards}
+  h1 em{color:var(--gold);font-style:italic;font-weight:400}
+  .subtitle{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);
+    opacity:0;animation:rise .8s var(--ease) .12s forwards}
+  .lede{font-size:16px;line-height:1.75;color:var(--text-muted);max-width:640px;margin-top:var(--l);
+    opacity:0;animation:rise .8s var(--ease) .18s forwards}
+
+  /* section intro */
+  .section-label{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+    margin-bottom:var(--m)}
+
+  /* layout */
+  .grid{display:grid;grid-template-columns:1fr 360px;gap:var(--xl);align-items:start;margin-top:var(--l)}
+  @media(max-width:880px){.grid{grid-template-columns:1fr;gap:var(--l)}}
+
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:var(--xl);
+    opacity:0;animation:rise .8s var(--ease) forwards}
+  .controls{animation-delay:.24s}
+  .result{animation-delay:.32s;position:sticky;top:24px}
+  @media(max-width:880px){.result{position:static}}
+
+  .ctl{padding:var(--l) 0;border-bottom:1px solid var(--border)}
+  .ctl:first-child{padding-top:0}
+  .ctl:last-child{border-bottom:none;padding-bottom:0}
+  .ctl .lab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--m);gap:var(--m)}
+  .ctl .lab h3{font-family:'Inter';font-weight:600;font-size:13.5px;letter-spacing:.01em;color:var(--text)}
+  .ctl .lab .val{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:21px;
+    color:var(--gold);white-space:nowrap;line-height:1;font-variant-numeric:tabular-nums}
+  .ctl .hint{font-size:12px;line-height:1.5;color:var(--text-dim);margin-top:var(--s)}
+
+  /* slider */
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:9999px;margin:var(--s) 0;
+    background:linear-gradient(90deg,var(--gold) var(--fill,40%),var(--surface-2) var(--fill,40%));outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+    background:var(--gold);border:3px solid var(--bg);cursor:pointer;box-shadow:0 0 0 1px var(--gold),0 2px 8px rgba(138,109,47,.3);
+    transition:transform .2s var(--spring)}
+  input[type=range]::-webkit-slider-thumb:active{transform:scale(1.18)}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--gold);
+    border:3px solid var(--bg);cursor:pointer;box-shadow:0 0 0 1px var(--gold),0 2px 8px rgba(138,109,47,.3)}
+
+  /* segmented */
+  .seg{display:grid;gap:var(--s)}
+  .seg.row{grid-template-columns:repeat(3,1fr)}
+  .seg.two{grid-template-columns:repeat(2,1fr)}
+  .opt{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:var(--m) var(--l);
+    cursor:pointer;transition:transform .2s var(--ease),background .2s var(--ease),border-color .2s var(--ease),box-shadow .2s var(--ease);
+    text-align:left;color:var(--text);font-family:'Inter';min-height:44px;
+    display:flex;flex-direction:column;justify-content:center;gap:3px}
+  .opt:hover{border-color:var(--gold-line);background:var(--surface)}
+  .opt.on{border-color:var(--gold);background:var(--gold-dim);box-shadow:0 0 0 1px var(--gold) inset}
+  .opt .t{font-weight:600;font-size:14px;color:var(--text);display:flex;align-items:center;justify-content:space-between;gap:var(--s)}
+  .opt .d{font-size:11.5px;line-height:1.4;color:var(--text-dim)}
+  .seg.row .opt,.seg.two .opt{text-align:center;align-items:center;padding:var(--m) var(--s)}
+  .seg.row .opt .t,.seg.two .opt .t{justify-content:center}
+
+  /* result */
+  .result{background:var(--bg)}
+  .result .rlab{font-size:9.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim)}
+  .rrule{width:44px;height:2px;background:var(--gold);margin:var(--m) 0}
+
+  /* score gauge */
+  .gauge{display:flex;align-items:center;gap:var(--l);margin-bottom:var(--l)}
+  .ring{position:relative;width:104px;height:104px;flex-shrink:0}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .track-c{stroke:var(--surface-2)}
+  .ring .fill-c{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .7s var(--sheet),stroke .4s var(--ease)}
+  .ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .num b{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;line-height:1;color:var(--text);font-variant-numeric:tabular-nums}
+  .ring .num small{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-top:2px}
+  .verdict .vlab{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:24px;line-height:1.1;color:var(--gold)}
+  .verdict .vsub{font-size:12px;line-height:1.5;color:var(--text-muted);margin-top:6px}
+
+  .meta{display:flex;gap:var(--xl);margin:var(--l) 0 var(--xl);padding-top:var(--l);border-top:1px solid var(--border)}
+  .meta div .k{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim)}
+  .meta div .v{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;color:var(--text);
+    margin-top:var(--xs);line-height:1;font-variant-numeric:tabular-nums}
+  .meta div .v .dash{color:var(--gold);margin:0 3px;font-weight:400}
+
+  .bd-title{font-size:9.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-dim);
+    margin-bottom:var(--m)}
+  /* flag list */
+  .flags{display:flex;flex-direction:column;gap:var(--s)}
+  .flag{display:flex;gap:var(--s);align-items:flex-start;font-size:13px;line-height:1.45;color:var(--text-muted)}
+  .flag svg{width:16px;height:16px;flex-shrink:0;margin-top:2px}
+  .flag.ok svg{color:var(--green)}
+  .flag.warn svg{color:var(--amber)}
+  .flag.bad svg{color:var(--red)}
+  .flag .fc{font-variant-numeric:tabular-nums;color:var(--text-dim);white-space:nowrap;margin-left:auto;font-size:12px}
+
+  .note{margin-top:var(--xl);padding:var(--m) var(--l);background:var(--gold-dim);border-left:2px solid var(--gold);
+    border-radius:0 6px 6px 0;font-size:11.5px;line-height:1.55;color:var(--text-muted)}
+  .note b{color:var(--gold);font-weight:600;letter-spacing:.5px;text-transform:uppercase;font-size:10px}
+
+  .cta{display:flex;align-items:center;justify-content:center;width:100%;margin-top:var(--l);padding:var(--l);
+    border:none;border-radius:8px;cursor:pointer;background:var(--gold);color:#fff;
+    font-family:'Inter';font-weight:600;font-size:14.5px;letter-spacing:.02em;min-height:48px;
+    transition:transform .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease)}
+  .cta:hover{background:#75591f;transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(138,109,47,.5)}
+  .cta:active{transform:translateY(0)}
+  .reassure{text-align:center;font-size:11.5px;color:var(--text-dim);margin-top:var(--m)}
+
+  /* trust strip */
+  .trust{display:flex;flex-wrap:wrap;gap:var(--xl);justify-content:center;padding:var(--xxl) 0;
+    border-top:1px solid var(--border);margin-top:var(--x3)}
+  .trust div{display:flex;align-items:center;gap:var(--s);font-size:13px;font-weight:500;color:var(--text-muted)}
+  .trust svg{width:18px;height:18px;color:var(--gold);flex-shrink:0}
+  footer{padding-top:var(--xl);color:var(--text-dim);font-size:11.5px;text-align:center;line-height:1.8}
+  footer b{color:var(--text-muted);font-weight:600}
+
+  /* mobile live-score bar */
+  .mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:90;align-items:center;justify-content:space-between;
+    gap:var(--m);padding:var(--m) var(--l);padding-bottom:calc(var(--m) + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.9);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);
+    border-top:1px solid var(--border);box-shadow:0 -6px 24px -10px rgba(40,33,20,.14)}
+  .mbar .mb-est{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .mbar .mb-k{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim)}
+  .mbar .mb-v{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:25px;color:var(--text);line-height:1;font-variant-numeric:tabular-nums}
+  .mbar .mb-v small{font-size:13px;color:var(--text-dim);font-family:'Inter';font-style:normal;font-weight:500}
+  .mbar .mb-cta{flex-shrink:0;border:none;border-radius:8px;padding:var(--m) var(--l);min-height:46px;cursor:pointer;
+    background:var(--gold);color:#fff;font-family:'Inter';font-weight:600;font-size:14px}
+  @media(max-width:880px){.mbar{display:flex}body{padding-bottom:80px}}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;z-index:200;background:rgba(26,24,20,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:var(--l)}
+  .overlay.show{display:flex;animation:fade .3s var(--ease)}
+  .modal{position:relative;background:var(--bg);border:1px solid var(--border);border-radius:14px;max-width:452px;width:100%;
+    padding:var(--xxl);box-shadow:0 24px 64px rgba(40,33,20,.28);transform:scale(.97);opacity:0;animation:pop .4s var(--sheet) forwards}
+  .modal h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;letter-spacing:-.5px;line-height:1.05;color:var(--text)}
+  .modal h2 em{color:var(--gold);font-style:italic;font-weight:500}
+  .modal p.mp{color:var(--text-muted);font-size:14px;line-height:1.6;margin:var(--s) 0 var(--xl)}
+  .field{margin-bottom:var(--m)}
+  .field label{display:block;font-size:9.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+    color:var(--text-dim);margin-bottom:6px}
+  .field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:var(--m) var(--l);color:var(--text);font-family:'Inter';font-size:15px;min-height:46px;
+    transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+  .field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim)}
+  .field input::placeholder{color:var(--text-dim)}
+  .est-pill{display:flex;justify-content:space-between;align-items:center;background:var(--surface-2);
+    border-radius:10px;padding:var(--m) var(--l);margin-bottom:var(--xl);border:1px solid var(--border)}
+  .est-pill .k{font-size:9.5px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;font-weight:600}
+  .est-pill .v{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--text);font-size:22px;font-variant-numeric:tabular-nums}
+  .mclose{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-dim);cursor:pointer;
+    width:34px;height:34px;border-radius:8px;font-size:22px;line-height:1;transition:background .2s var(--ease),color .2s var(--ease)}
+  .mclose:hover{background:var(--surface-2);color:var(--text)}
+  .modal-success{text-align:center;display:none}
+  .modal-success .check{width:60px;height:60px;border-radius:50%;background:var(--gold-dim);
+    display:grid;place-items:center;margin:0 auto var(--l);border:1px solid var(--gold-line)}
+  .modal-success .check svg{width:26px;height:26px;color:var(--gold)}
+
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes pop{to{opacity:1;transform:scale(1)}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="doc">
+    <div class="brand">
+      <div>
+        <div class="brand-mark">Flynn <span>Development</span></div>
+        <div class="brand-tag">Design · Construct · Transform</div>
+      </div>
+      <div class="doc-meta">
+        <div class="row"><div class="label">Document</div>Lot Buildability Scorecard</div>
+        <div class="row"><div class="label">Coverage</div>Statewide Tennessee · 2026</div>
+        <div class="row"><span class="version-pill">Lot Report</span></div>
+      </div>
+    </div>
+
+    <h1>Before you buy <em>the lot.</em></h1>
+    <div class="subtitle">What a parcel really costs before you buy · Tennessee</div>
+    <p class="lede">A beautiful piece of land can hide forty thousand dollars of site work before you ever pour a footer. Wells, septic, long driveways, rock, and steep grade are the costs that quietly turn a good deal into a money pit. Answer a few questions about the parcel you are looking at and we will score how build-ready it is and lay out the hidden site costs you should budget for.</p>
+  </header>
+
+  <section>
+    <div class="section-label">01 · Tell Us About The Parcel</div>
+
+    <div class="grid">
+      <!-- CONTROLS -->
+      <div class="panel controls">
+        <div class="ctl">
+          <div class="lab"><h3>Where are you with this lot?</h3></div>
+          <div class="seg" id="status">
+            <button class="opt on" data-k="status" data-v="looking"><span class="t">Still looking</span><span class="d">Scouting parcels, nothing under contract yet</span></button>
+            <button class="opt" data-k="status" data-v="contract"><span class="t">Under contract / making an offer</span><span class="d">This is the one, checking it out before I commit</span></button>
+            <button class="opt" data-k="status" data-v="own"><span class="t">I already own it</span><span class="d">Land is mine, planning the build</span></button>
+          </div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>Acreage</h3><span class="val" id="vAcre">2.0 ac</span></div>
+          <input type="range" id="acre" min="0.25" max="20" step="0.25" value="2" aria-label="Acreage">
+          <div class="hint">Roughly how big is the parcel.</div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>The terrain</h3></div>
+          <div class="seg row" id="slope">
+            <button class="opt on" data-k="slope" data-v="flat"><span class="t">Flat</span></button>
+            <button class="opt" data-k="slope" data-v="gentle"><span class="t">Gentle slope</span></button>
+            <button class="opt" data-k="slope" data-v="steep"><span class="t">Steep</span></button>
+          </div>
+          <div class="hint">Steep ground means more grading, taller foundations, sometimes retaining walls.</div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>Water</h3></div>
+          <div class="seg two" id="water">
+            <button class="opt on" data-k="water" data-v="city"><span class="t">City / utility water at the road</span></button>
+            <button class="opt" data-k="water" data-v="well"><span class="t">No public water, needs a well</span></button>
+          </div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>Sewer / septic</h3></div>
+          <div class="seg" id="sewer">
+            <button class="opt on" data-k="sewer" data-v="city"><span class="t">City sewer available</span><span class="d">Tie straight into the public line</span></button>
+            <button class="opt" data-k="sewer" data-v="perc"><span class="t">Septic, perc test already passed</span><span class="d">Soil approved and the system is sized</span></button>
+            <button class="opt" data-k="sewer" data-v="unknown"><span class="t">Septic, perc unknown</span><span class="d">No soil test yet, the biggest land gamble</span></button>
+          </div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>Access &amp; driveway</h3></div>
+          <div class="seg" id="access">
+            <button class="opt on" data-k="access" data-v="paved"><span class="t">Paved public road frontage</span><span class="d">Short, easy driveway to the build site</span></button>
+            <button class="opt" data-k="access" data-v="gravel"><span class="t">Gravel or shared/private road</span><span class="d">Some driveway build-out needed</span></button>
+            <button class="opt" data-k="access" data-v="long"><span class="t">No cut yet, long run to the homesite</span><span class="d">Culvert, base, grading, maybe a bridge</span></button>
+          </div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>Clearing</h3></div>
+          <div class="seg row" id="clearing">
+            <button class="opt on" data-k="clearing" data-v="open"><span class="t">Open / cleared</span></button>
+            <button class="opt" data-k="clearing" data-v="some"><span class="t">Some trees</span></button>
+            <button class="opt" data-k="clearing" data-v="wooded"><span class="t">Heavily wooded</span></button>
+          </div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>Power &amp; utilities at the road</h3></div>
+          <div class="seg two" id="power">
+            <button class="opt on" data-k="power" data-v="yes"><span class="t">Power is right there</span></button>
+            <button class="opt" data-k="power" data-v="no"><span class="t">Far / has to be run in</span></button>
+          </div>
+        </div>
+
+        <div class="ctl">
+          <div class="lab"><h3>Anything known about the ground or restrictions?</h3></div>
+          <div class="seg" id="risk">
+            <button class="opt on" data-k="risk" data-v="clean"><span class="t">Nothing flagged</span><span class="d">No rock, wet spots, flood zone, or HOA I know of</span></button>
+            <button class="opt" data-k="risk" data-v="hoa"><span class="t">HOA / deed restrictions</span><span class="d">Architectural rules, minimum sizes, approvals</span></button>
+            <button class="opt" data-k="risk" data-v="ground"><span class="t">Rock, wet ground, or flood zone</span><span class="d">Visible ledge, springs, creek, or FEMA flood</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="panel result">
+        <div class="rlab">Buildability score</div>
+        <div class="rrule"></div>
+
+        <div class="gauge">
+          <div class="ring">
+            <svg width="104" height="104" viewBox="0 0 104 104">
+              <circle class="track-c" cx="52" cy="52" r="46" fill="none" stroke-width="9"/>
+              <circle class="fill-c" id="ringFill" cx="52" cy="52" r="46" fill="none" stroke-width="9"
+                stroke-dasharray="289.0" stroke-dashoffset="0"/>
+            </svg>
+            <div class="num"><b id="scoreNum">100</b><small>of 100</small></div>
+          </div>
+          <div class="verdict">
+            <div class="vlab" id="verdictLab">Build-Ready</div>
+            <div class="vsub" id="verdictSub">A clean parcel with minimal site surprises.</div>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div><div class="k">Hidden site cost</div><div class="v" id="siteCost">$0<span class="dash">–</span>$0</div></div>
+        </div>
+
+        <div class="bd-title">What we flagged</div>
+        <div class="flags" id="flags"></div>
+
+        <div class="note"><b>Read on the parcel, not a survey</b><br>This is a planning read based on what you told us, not an engineering report. A perc test, survey, and site walk give the exact numbers. We will help you get them before you are locked in.</div>
+
+        <button class="cta" id="openLead">Get my full lot report</button>
+        <div class="reassure">No spam. Just a straight read on your land.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust">
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg> Honest site reads</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11L12 4l9 7"/><path d="M5 10v9h14v-9"/></svg> Tennessee custom home builder</div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Your report within 24 hours</div>
+  </div>
+
+  <footer>
+    Buildability scores reflect typical 2026 Tennessee site conditions and are meant for planning, not engineering or legal advice.<br>
+    Final site costs depend on survey, perc test, and a site walk. © <b>Flynn Development</b> · Cookeville, Tennessee
+  </footer>
+</div>
+
+<!-- MOBILE LIVE-SCORE BAR -->
+<div class="mbar" id="mbar">
+  <div class="mb-est">
+    <span class="mb-k">Buildability</span>
+    <span class="mb-v" id="mbVal">100<small> / 100</small></span>
+  </div>
+  <button class="mb-cta" id="mbCta">Full report</button>
+</div>
+
+<!-- LEAD MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="mclose" id="mclose" aria-label="Close">×</button>
+    <div class="modal-form" id="mform">
+      <h2>Get your full <em>lot report.</em></h2>
+      <p class="mp">We will send a clear breakdown of this parcel, covering the site costs to budget for, the red flags to verify, and the questions to ask before you sign. Jaden will look it over personally and reach out. No pressure and no sales pitch.</p>
+      <div class="est-pill"><span class="k">Your score</span><span class="v" id="pillEst">100 / 100</span></div>
+      <div class="field"><label>Full name</label><input id="fName" type="text" placeholder="Jane Builder" autocomplete="name"></div>
+      <div class="field"><label>Email</label><input id="fEmail" type="email" placeholder="you@email.com" autocomplete="email"></div>
+      <div class="field"><label>Phone</label><input id="fPhone" type="tel" placeholder="(931) 555-0199" autocomplete="tel"></div>
+      <button class="cta" id="submitLead">Send me my lot report</button>
+      <div class="reassure" id="ferr"></div>
+    </div>
+    <div class="modal-success" id="msuccess">
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+      <h2>You are all set.</h2>
+      <p class="mp">Your lot report is on the way, and Jaden will be in touch shortly. Talk soon, and we will make sure that land is worth building on.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   LOT MODEL, edit these to tune. Each answer carries:
+   - pen: points subtracted from a 100 buildability score
+   - lo/hi: added hidden SITE-COST range in dollars (2026 TN),
+     on top of a normal site budget. Calibrated to typical
+     Middle/East TN rural site work (well, septic, driveway,
+     clearing, grading, rock, utility runs).
+   ============================================================ */
+const MODEL = {
+  status: { // no cost or penalty, qualifier signal only
+    looking:{pen:0,lo:0,hi:0}, contract:{pen:0,lo:0,hi:0}, own:{pen:0,lo:0,hi:0}
+  },
+  slope: {
+    flat:{pen:0,lo:0,hi:0},
+    gentle:{pen:6,lo:4000,hi:12000, flag:'Gentle slope, with extra grading and a stepped or taller foundation'},
+    steep:{pen:20,lo:14000,hi:45000, flag:'Steep grade, meaning heavy grading, tall foundation walls, and possible retaining'}
+  },
+  water: {
+    city:{pen:0,lo:0,hi:0},
+    well:{pen:8,lo:8000,hi:16000, flag:'No public water, so a drilled well and pump'}
+  },
+  sewer: {
+    city:{pen:0,lo:0,hi:0},
+    perc:{pen:3,lo:5000,hi:8000, flag:'Septic system with perc passed, known and budgetable'},
+    unknown:{pen:18,lo:5000,hi:8000, flag:'Septic with no perc test yet, the biggest land gamble, since the soil decides whether you can build at all'}
+  },
+  access: {
+    paved:{pen:0,lo:0,hi:0},
+    gravel:{pen:7,lo:6000,hi:18000, flag:'Driveway build-out on a gravel or shared road, including base, culvert, and grading'},
+    long:{pen:14,lo:12000,hi:40000, flag:'Long driveway to the homesite, with culverts, base stone, grading, and possibly a bridge'}
+  },
+  clearing: {
+    open:{pen:0,lo:0,hi:0},
+    some:{pen:4,lo:3000,hi:9000, flag:'Some clearing and tree removal'},
+    wooded:{pen:10,lo:8000,hi:20000, flag:'Heavily wooded, so clearing, grubbing, and haul-off'}
+  },
+  power: {
+    yes:{pen:0,lo:0,hi:0},
+    no:{pen:8,lo:5000,hi:18000, flag:'Power not at the homesite, so a utility run with poles or trenching'}
+  },
+  risk: {
+    clean:{pen:0,lo:0,hi:0},
+    hoa:{pen:6,lo:0,hi:5000, flag:'HOA or deed restrictions, meaning plan approval, minimum sizes, and possible fees'},
+    ground:{pen:22,lo:10000,hi:40000, flag:'Rock, wet ground, or flood zone, which can mean blasting, drainage, or fill. Verify before you buy.'}
+  }
+};
+
+/* acreage adds a little uncertainty on big parcels (more to clear/grade/run),
+   but is mostly a qualifier signal. Small effect on cost only. */
+const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/3Zw3Gp3ECra1QIbnJc6y/webhook-trigger/407622c5-504a-4949-bc49-badcd3d91162";
+
+const state = { status:'looking', acre:2, slope:'flat', water:'city', sewer:'city', access:'paved', clearing:'open', power:'yes', risk:'clean' };
+
+const RING_LEN = 2*Math.PI*46; // 289.0
+const fmtK = n => n>=1000 ? '$'+Math.round(n/1000)+'K' : '$'+Math.round(n);
+
+const VERDICTS = [
+  {min:85, lab:'Build-Ready',          sub:'A clean parcel with minimal site surprises.',              col:'var(--green)'},
+  {min:65, lab:'Workable',             sub:'A solid lot with a few costs to plan for.',                col:'var(--gold)'},
+  {min:45, lab:'Proceed With Caution', sub:'Real site costs are hiding here, so verify before you sign.', col:'var(--amber)'},
+  {min:0,  lab:'High-Risk',            sub:'Heavy site work that could break the budget, so get it checked.', col:'var(--red)'}
+];
+
+function compute(){
+  let score=100, lo=0, hi=0;
+  const flags=[];
+  for(const key of ['slope','water','sewer','access','clearing','power','risk']){
+    const m = MODEL[key][state[key]];
+    if(!m) continue;
+    score -= m.pen;
+    lo += m.lo; hi += m.hi;
+    if(m.flag){
+      const sev = m.pen>=14 ? 'bad' : (m.pen>=5 ? 'warn' : 'ok');
+      flags.push({sev, text:m.flag, cost: m.hi>0 ? (fmtK(m.lo)+'–'+fmtK(m.hi)) : ''});
+    }
+  }
+  // big acreage nudges the high end up a touch (more ground to manage)
+  if(state.acre>=8){ hi += 4000; }
+  if(state.acre>=15){ hi += 4000; }
+  score = Math.max(2, Math.min(100, Math.round(score)));
+  if(!flags.length){ flags.push({sev:'ok', text:'No major site flags from what you told us, a clean place to start.', cost:''}); }
+  return { score, lo, hi, flags };
+}
+
+function verdictFor(s){ return VERDICTS.find(v=>s>=v.min); }
+
+function ringColor(s){
+  if(s>=85) return 'var(--green)';
+  if(s>=65) return 'var(--gold)';
+  if(s>=45) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+const ICON = {
+  ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+  warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>',
+  bad:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/></svg>'
+};
+
+let curOffset = 0;
+function animateScore(to){
+  const el=document.getElementById('scoreNum');
+  const from=parseFloat(el.dataset.cur||100);
+  const start=performance.now(),dur=520;
+  function step(t){
+    const p=Math.min((t-start)/dur,1), e=1-Math.pow(1-p,3);
+    const v=Math.round(from+(to-from)*e);
+    el.textContent=v; el.dataset.cur=v;
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function render(){
+  const r=compute();
+  animateScore(r.score);
+
+  // ring
+  const ring=document.getElementById('ringFill');
+  const off = RING_LEN*(1 - r.score/100);
+  ring.style.strokeDashoffset=off;
+  ring.style.stroke=ringColor(r.score);
+
+  const vd=verdictFor(r.score);
+  document.getElementById('verdictLab').textContent=vd.lab;
+  document.getElementById('verdictLab').style.color=vd.col;
+  document.getElementById('verdictSub').textContent=vd.sub;
+
+  const sc = r.hi>0 ? (fmtK(r.lo)+'<span class="dash">–</span>'+fmtK(r.hi)) : '$0';
+  document.getElementById('siteCost').innerHTML = sc;
+
+  document.getElementById('flags').innerHTML = r.flags.map(f=>`
+    <div class="flag ${f.sev}">${ICON[f.sev]}<span>${f.text}</span>${f.cost?`<span class="fc">${f.cost}</span>`:''}</div>`).join('');
+
+  document.getElementById('pillEst').textContent = r.score+' / 100 · '+vd.lab;
+  document.getElementById('mbVal').innerHTML = r.score+'<small> / 100</small>';
+}
+
+/* slider fill */
+function fill(el){const pct=(el.value-el.min)/(el.max-el.min)*100;el.style.setProperty('--fill',pct+'%');}
+document.getElementById('acre').addEventListener('input',e=>{
+  state.acre=+e.target.value;
+  document.getElementById('vAcre').textContent=(+e.target.value)+' ac';
+  fill(e.target);render();});
+
+/* segmented groups */
+['status','slope','water','sewer','access','clearing','power','risk'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{
+    const b=e.target.closest('.opt');if(!b)return;
+    document.querySelectorAll('#'+id+' .opt').forEach(o=>o.classList.remove('on'));
+    b.classList.add('on');
+    state[b.dataset.k]=b.dataset.v;
+    render();});
+});
+
+/* modal */
+const ov=document.getElementById('overlay');
+function openModal(){ov.classList.add('show');document.getElementById('mform').style.display='block';document.getElementById('msuccess').style.display='none';}
+document.getElementById('openLead').onclick=openModal;
+document.getElementById('mbCta').onclick=openModal;
+document.getElementById('mclose').onclick=()=>ov.classList.remove('show');
+ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('show');});
+
+document.getElementById('submitLead').onclick=async()=>{
+  const name=document.getElementById('fName').value.trim();
+  const email=document.getElementById('fEmail').value.trim();
+  const phone=document.getElementById('fPhone').value.trim();
+  const err=document.getElementById('ferr');
+  if(!name||!email.includes('@')||phone.length<7){err.textContent='Please fill in all three fields.';err.style.color='#b4453a';return;}
+  err.textContent='';
+  const r=compute();
+  const vd=verdictFor(r.score);
+  const flagText = r.flags.map(f=>f.text+(f.cost?(' ('+f.cost+')'):'')).join(' | ');
+  const payload={
+    firstName:name.split(' ')[0], lastName:name.split(' ').slice(1).join(' '),
+    name, email, phone, source:'Lot Scorecard',
+    lot_score:r.score, lot_verdict:vd.lab,
+    lot_status:state.status, acreage:state.acre,
+    site_cost_low:r.lo, site_cost_high:r.hi,
+    site_cost_range: r.hi>0 ? (fmtK(r.lo)+' – '+fmtK(r.hi)) : '$0',
+    slope:state.slope, water:state.water, sewer:state.sewer, access:state.access,
+    clearing:state.clearing, power:state.power, ground_risk:state.risk,
+    lot_flags: flagText
+  };
+  if(GHL_WEBHOOK_URL){
+    try{ await fetch(GHL_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(e){}
+  }
+  if(window.fbq){ fbq('track','Lead',{content_name:'Lot Buildability Scorecard'}); }
+  document.getElementById('mform').style.display='none';
+  document.getElementById('msuccess').style.display='block';
+};
+
+fill(document.getElementById('acre'));
+render();
+</script>
+</body>
+</html>
