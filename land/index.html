@@ -591,6 +591,7 @@ document.getElementById('submitLead').onclick=async()=>{
   const vd=verdictFor(r.score);
   const flagText = r.flags.map(f=>f.text+(f.cost?(' ('+f.cost+')'):'')).join(' | ');
   const payload={
+    mk:'mk_0a34617882174f7006c23251',
     firstName:name.split(' ')[0], lastName:name.split(' ').slice(1).join(' '),
     name, email, phone, source:'Lot Scorecard',
     lot_score:r.score, lot_verdict:vd.lab,
