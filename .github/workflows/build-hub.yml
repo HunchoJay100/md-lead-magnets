@@ -1,0 +1,42 @@
+name: Build hub homepage
+
+# Rebuilds the tool cards on index.html whenever a magnet folder changes.
+# Each magnet carries an <!-- HUB {...} --> block; this scans them all.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/index.html'
+      - '.github/scripts/build-hub.js'
+      - '.github/workflows/build-hub.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-hub
+  cancel-in-progress: false
+
+jobs:
+  build-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate hub card list
+        run: node .github/scripts/build-hub.js
+
+      - name: Commit if the hub changed
+        run: |
+          if [ -n "$(git status --porcelain index.html)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Auto-rebuild hub homepage from magnet folders"
+            git push
+            echo "Hub homepage updated and pushed."
+          else
+            echo "No hub changes to commit."
+          fi

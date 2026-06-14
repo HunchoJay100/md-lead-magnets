@@ -133,13 +133,15 @@ fbq('track', 'PageView');
 
 <script>
   /* ===========================================================
-     TOOLS — add a new lead magnet here and it shows on the hub.
-     path  : folder name under go.moderndevelopment.co (e.g. "/build")
-     title : card heading
-     blurb : one-line description
-     tag   : small category label (top-left chip)
-     meta  : bottom line (who it's for / time)
+     TOOLS — AUTO-GENERATED. Do not edit this list by hand.
+     Each magnet folder carries an  <!-- HUB {...} -->  block in its
+     own index.html. On every push, the GitHub Action at
+     .github/workflows/build-hub.yml scans the folders and rewrites
+     everything between the two markers below.
+     To add a tool: create the magnet folder (copy _template), fill
+     in its HUB block, and push. It shows up here automatically.
      =========================================================== */
+  /* HUB:AUTO:START */
   const TOOLS = [
     {
       path:  "/build",
@@ -163,6 +165,7 @@ fbq('track', 'PageView');
       meta:  "For homeowners getting funded · 3 min"
     }
   ];
+  /* HUB:AUTO:END */
 
   const grid = document.getElementById('grid');
   grid.innerHTML = TOOLS.map((t,i) => `
