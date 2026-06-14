@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Modern Development — Free Tools</title>
-<meta name="description" content="Free tools and calculators from Modern Development to help you build smarter in Tennessee." />
+<title>Modern Development — Free Tools for Building in Tennessee</title>
+<meta name="description" content="Free plain-number tools and calculators from Modern Development to help you plan, price, and build a custom home in Middle Tennessee." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- Meta Pixel (Meca Marketing Data) -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -20,24 +23,152 @@ fbq('track', 'PageView');
 </script>
 <!-- End Meta Pixel -->
 <style>
-  :root{--gold:#C5A55A}
-  *{box-sizing:border-box}
-  body{font-family:system-ui,-apple-system,sans-serif;background:#0f0f0f;color:#f4f4f4;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
-  .wrap{max-width:560px;width:100%;text-align:center}
-  h1{font-weight:600;letter-spacing:-.02em;margin:0 0 8px}
-  p.sub{color:#9a9a9a;margin:0 0 32px}
-  a.tool{display:block;text-align:left;text-decoration:none;color:#f4f4f4;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:20px 22px;margin:12px 0;transition:border-color .2s,transform .2s}
-  a.tool:hover{border-color:var(--gold);transform:translateY(-2px)}
-  a.tool h3{margin:0 0 4px;font-size:18px}
-  a.tool span{color:#9a9a9a;font-size:14px}
+  :root{
+    --bg:#ffffff;
+    --surface:#fafaf8;
+    --surface-2:#f4f2ed;
+    --border:#e5e3dd;
+    --gold:#8a6d2f;
+    --gold-soft:#a8893d;
+    --gold-dim:rgba(138,109,47,.08);
+    --gold-line:rgba(138,109,47,.22);
+    --text:#1a1a1a;
+    --text-muted:#555555;
+    --text-dim:#888888;
+    --xs:4px; --s:8px; --m:12px; --l:16px; --xl:24px; --xxl:32px; --x3:48px;
+    --ease:cubic-bezier(.2,0,0,1);
+    --spring:cubic-bezier(.34,1.56,.64,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:clamp(40px,7vw,80px) 22px 64px}
+
+  /* ---- header ---- */
+  .top{display:flex;align-items:center;gap:12px;margin-bottom:clamp(40px,8vw,72px)}
+  .top img{height:38px;width:auto;display:block}
+  .brand-mark{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;letter-spacing:.5px;line-height:1}
+  .brand-mark .co{color:var(--text-dim);font-weight:400}
+
+  /* ---- hero ---- */
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,56px);font-weight:500;letter-spacing:-.5px;line-height:1.08;color:var(--text)}
+  h1 em{font-style:italic;color:var(--gold)}
+  .sub{font-size:17px;color:var(--text-muted);margin-top:18px;max-width:560px;line-height:1.6}
+  .rule{width:48px;height:2px;background:var(--gold);margin:32px 0 8px}
+
+  /* ---- tool grid ---- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:36px}
+  .card{
+    display:flex;flex-direction:column;
+    text-decoration:none;color:inherit;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:24px 24px 22px;
+    transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease);
+    opacity:0;transform:translateY(12px);
+    animation:up .6s var(--ease) forwards;
+  }
+  .card:hover{transform:translateY(-3px);border-color:var(--gold-line);box-shadow:0 12px 30px rgba(138,109,47,.10)}
+  .card .ctop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+  .tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold-line);padding:4px 10px;border-radius:9999px}
+  .arrow{font-family:'Inter';font-size:18px;color:var(--text-dim);transition:transform .3s var(--ease),color .3s var(--ease)}
+  .card:hover .arrow{transform:translateX(4px);color:var(--gold)}
+  .card h3{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;letter-spacing:-.3px;line-height:1.15;color:var(--text)}
+  .card p{font-size:14.5px;color:var(--text-muted);margin-top:8px;line-height:1.55}
+  .card .meta{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-dim);font-weight:500}
+
+  /* ---- footer ---- */
+  footer{margin-top:56px;padding-top:28px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between}
+  footer .fb{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text)}
+  footer .fl a{color:var(--text-dim);text-decoration:none;font-size:13.5px;margin-left:18px;transition:color .2s var(--ease)}
+  footer .fl a:hover{color:var(--gold)}
+  footer .fnote{flex-basis:100%;font-size:12.5px;color:var(--text-dim);margin-top:14px}
+
+  @keyframes up{to{opacity:1;transform:translateY(0)}}
+  @media (max-width:540px){
+    .grid{grid-template-columns:1fr}
+    footer{flex-direction:column;align-items:flex-start}
+    footer .fl{margin-top:8px}
+    footer .fl a{margin:0 18px 0 0}
+  }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Modern Development — Free Tools</h1>
-    <p class="sub">Plain-number tools to help you build smarter in Tennessee.</p>
-    <a class="tool" href="/build"><h3>Build Cost Estimator</h3><span>See what it really costs to build a custom home.</span></a>
-    <a class="tool" href="/land"><h3>Lot Buildability Scorecard</h3><span>Score a raw parcel before you buy it.</span></a>
+
+    <div class="top">
+      <img src="/fd-monogram.png" alt="Modern Development" />
+      <div class="brand-mark">Modern Development<span class="co"> · Tools</span></div>
+    </div>
+
+    <div class="eyebrow">Free Tools</div>
+    <h1>Plan your build with <em>real numbers</em>, before you talk to anyone.</h1>
+    <p class="sub">Straight tools built by a Middle Tennessee builder. No sign-up wall to start, no inflated estimates. Use what you need to price, plan, and size up your custom home or lot.</p>
+    <div class="rule"></div>
+
+    <div class="grid" id="grid"></div>
+
+    <footer>
+      <span class="fb">Modern Development</span>
+      <span class="fl">
+        <a href="https://flynndevelopment.co">flynndevelopment.co</a>
+        <a href="mailto:jaden@moderndevelopment.co">Contact</a>
+      </span>
+      <span class="fnote">Cookeville, Tennessee · Design. Construct. Transform.</span>
+    </footer>
+
   </div>
+
+<script>
+  /* ===========================================================
+     TOOLS — add a new lead magnet here and it shows on the hub.
+     path  : folder name under go.moderndevelopment.co (e.g. "/build")
+     title : card heading
+     blurb : one-line description
+     tag   : small category label (top-left chip)
+     meta  : bottom line (who it's for / time)
+     =========================================================== */
+  const TOOLS = [
+    {
+      path:  "/build",
+      title: "Build Cost Estimator",
+      blurb: "See what it really costs to build a custom home in Middle Tennessee, by size and finish level.",
+      tag:   "Pricing",
+      meta:  "For homeowners pricing a build · 2 min"
+    },
+    {
+      path:  "/land",
+      title: "Lot Buildability Scorecard",
+      blurb: "Score a raw parcel before you buy it. Catch hidden site costs like septic, grade, and access.",
+      tag:   "Land",
+      meta:  "For lot buyers · 3 min"
+    }
+  ];
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = TOOLS.map((t,i) => `
+    <a class="card" href="${t.path}" style="animation-delay:${0.08 + i*0.07}s">
+      <div class="ctop">
+        <span class="tag">${t.tag}</span>
+        <span class="arrow">&rarr;</span>
+      </div>
+      <h3>${t.title}</h3>
+      <p>${t.blurb}</p>
+      ${t.meta ? `<div class="meta">${t.meta}</div>` : ``}
+    </a>
+  `).join('');
+</script>
 </body>
 </html>
